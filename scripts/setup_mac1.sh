@@ -10,18 +10,15 @@ cat <<EOF > /etc/dnsmasq.conf
 listen-address=10.0.1.10,127.0.0.1
 bind-interfaces
 server=8.8.8.8
+no-resolv
 address=/app.team1.test/10.0.1.20
 address=/api.team1.test/10.0.1.20
 EOF
 
+systemctl stop systemd-resolved
+systemctl disable systemd-resolved
+rm -f /etc/resolv.conf
+echo "nameserver 10.0.1.10" > /etc/resolv.conf
+
 systemctl restart dnsmasq
 systemctl enable dnsmasq
-
-# Also configure systemd-resolved to use 10.0.1.10 as DNS
-mkdir -p /etc/systemd/resolved.conf.d/
-cat <<EOF > /etc/systemd/resolved.conf.d/cn-project.conf
-[Resolve]
-DNS=10.0.1.10
-Domains=~test
-EOF
-systemctl restart systemd-resolved
