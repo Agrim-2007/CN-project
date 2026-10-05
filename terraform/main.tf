@@ -120,7 +120,7 @@ data "aws_ami" "ubuntu" {
 # Mac 1: DNS Server + Client
 resource "aws_instance" "mac1" {
   ami                    = data.aws_ami.ubuntu.id
-  instance_type          = "t2.micro"
+  instance_type          = "t3.micro"
   subnet_id              = aws_subnet.cn_project_subnet.id
   private_ip             = "10.0.1.10"
   vpc_security_group_ids = [aws_security_group.cn_project_sg.id]
@@ -135,7 +135,7 @@ resource "aws_instance" "mac1" {
 # Mac 2: Edge / Reverse Proxy + Load Balancer
 resource "aws_instance" "mac2" {
   ami                    = data.aws_ami.ubuntu.id
-  instance_type          = "t2.micro"
+  instance_type          = "t3.micro"
   subnet_id              = aws_subnet.cn_project_subnet.id
   private_ip             = "10.0.1.20"
   vpc_security_group_ids = [aws_security_group.cn_project_sg.id]
@@ -150,7 +150,7 @@ resource "aws_instance" "mac2" {
 # Mac 3: Backend Server A
 resource "aws_instance" "mac3" {
   ami                    = data.aws_ami.ubuntu.id
-  instance_type          = "t2.micro"
+  instance_type          = "t3.micro"
   subnet_id              = aws_subnet.cn_project_subnet.id
   private_ip             = "10.0.1.30"
   vpc_security_group_ids = [aws_security_group.cn_project_sg.id]
@@ -165,7 +165,7 @@ resource "aws_instance" "mac3" {
 # Mac 4: Backend Server B + Test Client
 resource "aws_instance" "mac4" {
   ami                    = data.aws_ami.ubuntu.id
-  instance_type          = "t2.micro"
+  instance_type          = "t3.micro"
   subnet_id              = aws_subnet.cn_project_subnet.id
   private_ip             = "10.0.1.40"
   vpc_security_group_ids = [aws_security_group.cn_project_sg.id]
