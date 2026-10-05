@@ -3,7 +3,12 @@ apt-get update
 apt-get install -y python3 python3-flask python3-pip tcpdump tshark curl dnsutils
 
 # Configure DNS to use Mac 1
-sed -i 's/#DNS=/DNS=10.0.1.10/' /etc/systemd/resolved.conf
+mkdir -p /etc/systemd/resolved.conf.d/
+cat <<EOF > /etc/systemd/resolved.conf.d/cn-project.conf
+[Resolve]
+DNS=10.0.1.10
+Domains=~test
+EOF
 systemctl restart systemd-resolved
 
 mkdir -p /opt/backend
