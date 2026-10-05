@@ -122,6 +122,7 @@ data "aws_ami" "ubuntu" {
 resource "aws_instance" "mac1" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t3.micro"
+  key_name               = aws_key_pair.cn_project_key.key_name
   subnet_id              = aws_subnet.cn_project_subnet.id
   private_ip             = "10.0.1.10"
   vpc_security_group_ids = [aws_security_group.cn_project_sg.id]
@@ -137,6 +138,7 @@ resource "aws_instance" "mac1" {
 resource "aws_instance" "mac2" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t3.micro"
+  key_name               = aws_key_pair.cn_project_key.key_name
   subnet_id              = aws_subnet.cn_project_subnet.id
   private_ip             = "10.0.1.20"
   vpc_security_group_ids = [aws_security_group.cn_project_sg.id]
@@ -152,6 +154,7 @@ resource "aws_instance" "mac2" {
 resource "aws_instance" "mac3" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t3.micro"
+  key_name               = aws_key_pair.cn_project_key.key_name
   subnet_id              = aws_subnet.cn_project_subnet.id
   private_ip             = "10.0.1.30"
   vpc_security_group_ids = [aws_security_group.cn_project_sg.id]
@@ -167,6 +170,7 @@ resource "aws_instance" "mac3" {
 resource "aws_instance" "mac4" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t3.micro"
+  key_name               = aws_key_pair.cn_project_key.key_name
   subnet_id              = aws_subnet.cn_project_subnet.id
   private_ip             = "10.0.1.40"
   vpc_security_group_ids = [aws_security_group.cn_project_sg.id]
@@ -176,4 +180,9 @@ resource "aws_instance" "mac4" {
     Name = "Mac4-Backend-B-Client"
     Role = "BackendB"
   }
+}
+
+resource "aws_key_pair" "cn_project_key" {
+  key_name   = "cn-project-key"
+  public_key = file("~/.ssh/id_rsa.pub")
 }
